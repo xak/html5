@@ -1,0 +1,66 @@
+body{background:gray;}
+#body{width:960px;height:600px;margin:50px auto;background:white;position:relative;}
+
+
+#body {
+	-webkit-box-flex:1;
+	-webkit-user-select:none;
+    -webkit-text-size-adjust:none;
+}
+
+#toc-toggle{position:absolute;right:10px;top:10px;border:solid 1px black;}
+#toc{
+	position:absolute;
+	right:10px;top:50px;
+	visibility:hidden;
+
+/*
+	border-width:2px 0;
+*/
+border:solid 2px gray;
+width:150px;
+
+}
+
+
+#toc{height:300px;}
+
+
+.desktop #toc-scroller{height:300px;overflow:auto;}
+
+
+#toc-scroller::-webkit-scrollbar {
+    width: 2px;
+}
+#toc-scroller::-webkit-scrollbar-thumb:vertical {
+    background-color: black;
+}
+#toc-scroller::-webkit-scrollbar-track:vertical {
+    background-color: gray;
+}
+/*
+*/
+
+/*
+ * http://webkit.org/blog/363/styling-scrollbars/
+ * 
+scrollbar
+scrollbar-button
+scrollbar-track
+scrollbar-track-piece
+scrollbar-thumb
+scrollbar-corner
+resizer
+*/
+
+#toc ul{
+	margin:0;
+	width:150px;
+	position:absolute;
+	left:0;
+}
+#toc li{border-bottom:solid 2px gray;height:50px;}
+#toc li:last-child{border:0;}
+
+
+

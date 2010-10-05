@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<!--[if IE]><![endif]-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title></title>
+<meta name="description" content="">
+<meta name="author" content="">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+
+<!-- 
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+-->
+
+<link rel="stylesheet" href="../_files/css/style.css?v=1">
+<link rel="stylesheet" media="handheld" href="../_files/css/handheld.css?v=1">
+<script src="../_files/js/modernizr.js?v=1.5"></script>
+
+<style>
+
+</style>
+
+</head>
+<body id="PAGE_ID" class="SECTION_ID TEMPLATE_ID">
+<div id="body">
+<header>
+</header>
+
+
+<div id="test">
+
+flash alt
+
+</div>
+
+<div id="video">
+ 
+<!--
+<video poster="flags.gif" controls>
+	<source src="http://players.edgesuite.net/videos/big_buck_bunny/bbb.m3u8" type="application/vnd.apple.mpegurl">
+	<source src="fpo-high.m4v" type="video/mp4">
+	<source src="http://players.edgesuite.net/videos/big_buck_bunny/bbb_448x252.ogg" type="video/ogg">
+</video>
+-->
+<a href="fpo-high.m4v" class="embedvideo" data-poster="fpo-poster.jpg" data-transcript="transcript.html"s>
+	<img src="fpo-poster.jpg" width="400" height="300"/>
+</a>
+
+
+
+</div>
+
+<!--
+<button onclick="alert(ZackUtil.basePath)">basepath</button>
+-->	
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script>!window.jQuery && document.write('<script src="../_files/js/jquery.js?v=1.4.2"><\/script>')</script>
+<script src="../_files/js/plugins.js?v=1"></script>
+<script src="../_files/js/script.js?v=1"></script>
+<script>
+log('basepath = '+ZackUtil.basePath);
+
+$(function(){
+	//onready
+	
+	$('a.embedvideo, a.overlayvideo').click(
+		function(e) {
+			var $this = $(this), url = $this.attr('href'), 
+				vars = {};
+				vars.transcript = $this.attr('data-transcript') || '';
+				vars.poster = $this.attr('data-poster') || '';		
+			ZackUtil.embedVideo('video',url,'100','100',vars);
+			e.preventDefault();
+		}
+	);
+	
+
+})
+
+
+
+
+
+
+$('#body').css('background-image','url(trans2.png)').addClass('pngfix_');
+
+
+
+
+
+//ZackUtil.embedFlash('test','../_files/flash/fpo.swf',960,100);
+
+setTimeout(function() { $.getCSS(['../_files/css/red.css']); },3000)
+
+
+
+</script>	
+</body>
+</html>
