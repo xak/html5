@@ -19,7 +19,7 @@
 			border:none;
 			display:block;
 			position:absolute;
-			background:transparent url('icons.png') no-repeat scroll 0 0;
+			background:transparent url('../img/video/icons.png') no-repeat scroll 0 0;
 			opacity:0.6;
 		}
 		.hvideo controls button:hover {
@@ -112,6 +112,6 @@
 					z-index:3;
 				}
 				.hvideo controls extended bar.unbuffered {
-					background:transparent url('bar-total.png') repeat scroll top left;
+					background:transparent url('../img/video/bar-total.png') repeat scroll top left;
 					z-index:2;
 				}

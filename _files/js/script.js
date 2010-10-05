@@ -11,8 +11,9 @@ var _ns = 'ZackUtil';
 		_swfObjectUrl = 'http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js',
 		_ddBelatedUrl = '_files/js/dd_belatedpng.js',
 		_flashPlayerUrl = '_files/flash/fpo.swf',
-		_html5VideoJSUrl = '_files/js/jquery.hvideo.js',
+		_html5VideoUrl = '_i/video.htmlf',
 		_html5VideoCSSUrl = '_files/css/hvideo.css',
+		_hvideoUrl = '_files/js/jquery.hvideo.js',
 		_pngFixElems = '.pngfix_';
 
 	function Util() {
@@ -63,11 +64,21 @@ var _ns = 'ZackUtil';
 		};
 		this.embedVideo = function(container,videoUrl,width,height,vars) {				
 
-				if($html.hasClass('video')) {
+				if(this.supportsVideo) {
 					//use video
-log('embed video player')
+log('embed video player = ' + this.basePath + _html5VideoUrl);
+					var $target = $('#' + this.wrap(container));
 
-					
+					/*TODO: replace with dynamic creation*/
+					var videoEl = this.basePath + _html5VideoUrl;
+					var _embed = function() {
+						var init = function() {
+							$target.hvideo()
+						}
+						$target.addClass('hvideo').load(videoEl,init);
+					};
+					$.getCSS(this.basePath + _html5VideoCSSUrl);
+					$.getScript(this.basePath + _hvideoUrl,_embed);
 					
 				} else {
 					//use flashplayer
