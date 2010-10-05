@@ -8,12 +8,13 @@ var _ns = 'ZackUtil';
 		_browserVersion = parseInt($.browser.version, 10),
 		$html = $('html'),
 		_flashVersionSupported = '9',
-		_swfObjectUrl = 'http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js',
-		_ddBelatedUrl = '_files/js/dd_belatedpng.js',
-		_flashPlayerUrl = '_files/flash/fpo.swf',
-		_html5VideoUrl = '_i/video.htmlf',
-		_html5VideoCSSUrl = '_files/css/hvideo.css',
-		_hvideoUrl = '_files/js/jquery.hvideo.js',
+		_swfObject = 'http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js',
+		_ddBelated = '_files/js/dd_belatedpng.js',
+		_flashPlayer = '_files/flash/fpo.swf',
+		_html5Video = '_i/video.htmlf',
+		_html5VideoJS = '_files/js/video.js',
+		_html5VideoCSS = '_files/css/video-js.css',
+		_html5VideoCSSSkin = '_files/css/skins/tube.css',
 		_pngFixElems = '.pngfix_';
 
 	function Util() {
@@ -33,6 +34,15 @@ var _ns = 'ZackUtil';
 			return path.substring(0,path.indexOf('css'));
 		})();
 		this.basePath = this.filePath.replace('_files/','');
+		this.addBasePath = function(args) {
+				if(!args) { return; }
+				return !$.isArray(args) ? this.basePath + args : (function(files,base) {
+							var arr = $.map(files, function(n,i) {
+								return (base + n);
+							});
+							return arr;	
+						})(args,this.basePath);
+		};
 		//dom
 		this.wrap = function(id,type) {
 				var isEl = typeof id !== 'string',
@@ -56,37 +66,37 @@ var _ns = 'ZackUtil';
 					swfobject.embedSWF(swf, container, width, height, _flashVersionSupported, flashvars, params);
 			}
 			if(typeof swfobject === 'undefined') {
-				 $.getScript(_swfObjectUrl,_embed);
+				 $.getScript(_swfObject,_embed);
 				 $('html').addClass('flash');
 			} else {
 				_embed();
 			}
 		};
 		this.embedVideo = function(container,videoUrl,width,height,vars) {				
-
 				if(this.supportsVideo) {
 					//use video
-log('embed video player = ' + this.basePath + _html5VideoUrl);
 					var $target = $('#' + this.wrap(container));
 
 					/*TODO: replace with dynamic creation*/
-					var videoEl = this.basePath + _html5VideoUrl;
+					var videoEl = this.basePath + _html5Video;
 					var _embed = function() {
 						var init = function() {
-							$target.hvideo()
+							var videoEl = $target.addClass('video-js-box').find('video').eq(0);
+							VideoJS.setup(videoEl);
 						}
-						$target.addClass('hvideo').load(videoEl,init);
+						$target.addClass('tube-css').load(videoEl,init);
 					};
-					$.getCSS(this.basePath + _html5VideoCSSUrl);
-					$.getScript(this.basePath + _hvideoUrl,_embed);
-					
+					$.getCSS(this.addBasePath(_html5VideoCSS));
+					$.getCSS(this.addBasePath(_html5VideoCSSSkin));
+					$.getScript(this.basePath + _html5VideoJS,_embed);
+				
 				} else {
 					//use flashplayer
 log('embed flash player')
-					var player = this.basePath + _flashPlayerUrl,
+					var player = this.basePath + _flashPlayer,
 							flashvars = vars || {};
-						flashvars.videoPath = videoUrl;s
-					this.embedFlash(container,this.basePath + _flashPlayerUrl,width,height,flashvars);
+						flashvars.videoPath = videoUrl;
+					this.embedFlash(container,this.basePath + _flashPlayer,width,height,flashvars);
 
 
 				}
@@ -100,9 +110,9 @@ log('embed flash player')
 				DD_belatedPNG.fix(selectors);
 			}
 			if(typeof DD_belatedPNG === 'undefined') {
-				var url = basePath + _ddBelatedUrl;
+				var url = basePath + _ddBelated;
 				/* TODO: this RegEx only matchs the h of http */
-				$.getScript(_ddBelatedUrl.match(/^[\/|http]/) ? _ddBelatedUrl : basePath + _ddBelatedUrl ,_apply);
+				$.getScript(_ddBelated.match(/^[\/|http]/) ? _ddBelated : basePath + _ddBelated ,_apply);
 			} else {
 				_apply();
 			}

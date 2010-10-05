@@ -6,6 +6,7 @@
 	 * $.getCSS('foo.css',['bar.css','print']);
 	 */
 	$.getCSS = function(){
+		if(!arguments[0]) { return;	}
 		$.each(arguments, function() {
 			var arg = this,
 				isArray = $.isArray(arg),
@@ -15,10 +16,9 @@
 			link.setAttribute('href', href)
 			link.setAttribute('rel','stylesheet');
 			if(media){link.setAttribute('media',media);}
-			document.getElementsByTagName("head")[0].appendChild(link)
+			document.getElementsByTagName('head')[0].appendChild(link)
 		});
 	}
-
 	
 	jQuery.fn.extend({
 

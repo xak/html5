@@ -1,24 +1,6 @@
 <!-- video player frag -->
-<controls>
-	<button class="play-pause paused" title="Toggle playback"></button>
-	<extended>
-		<bar class="position" title="Current position">
-			<p class="meta">0:00</p>
-		</bar>
-		<bar class="total">
-			<p class="meta" title="Total length">0:00</p>
-		</bar>
-		<bar class="buffered"></bar>
-		<bar class="unbuffered"></bar>
-		<button class="mute-audio" title="Mute/unmute audio"></button>
-		<button class="zoom" title="Zoom in/out"></button>
-	</extended>
-</controls>
-<video width="640" height="360"
-			 poster="http://media.zackweb.com/fpo-poster.jpg"
-			 autobuffer>
-	<source src="http://media.zackweb.com/fpo-high.m4v"
-					type="video/mp4">
-	<source src="http://hunch.se/tmp/Spotify_-_the_story_720p.ogv"
-					type="video/ogg">
-</video>
+	<video id="example_video_1" class="video-js" width="640" height="264" controls="controls" preload="auto" poster="http://video-js.zencoder.com/oceans-clip.png">
+		<source src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+		<source src="http://video-js.zencoder.com/oceans-clip.webm" type='video/webm; codecs="vp8, vorbis"'>
+		<source src="http://video-js.zencoder.com/oceans-clip.ogv" type='video/ogg; codecs="theora, vorbis"'>
+	</video>

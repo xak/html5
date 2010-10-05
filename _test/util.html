@@ -61,7 +61,7 @@ log('basepath = '+ZackUtil.basePath);
 $(function(){
 	//onready
 	
-	$('a.embedvideo, a.overlayvideo').click(
+	$('a.embedvideo').click(
 		function(e) {
 			var $this = $(this), url = $this.attr('href'), 
 				vars = {};
@@ -74,13 +74,13 @@ $(function(){
 	
 
 })
-log(ZackUtil.supportsAudio);
+//log(ZackUtil.supportsAudio);
 
 
 
 
 
-$('#body').css('background-image','url(trans2.png)').addClass('pngfix_');
+//$('#body').css('background-image','url(trans2.png)').addClass('pngfix_');
 
 
 
@@ -88,7 +88,7 @@ $('#body').css('background-image','url(trans2.png)').addClass('pngfix_');
 
 //ZackUtil.embedFlash('test','../_files/flash/fpo.swf',960,100);
 
-setTimeout(function() { $.getCSS(['../_files/css/red.css']); },3000)
+//setTimeout(function() { $.getCSS(['../_files/css/red.css']); },3000)
 
 
 
