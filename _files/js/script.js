@@ -11,6 +11,8 @@ var _ns = 'ZackUtil';
 		_swfObjectUrl = 'http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js',
 		_ddBelatedUrl = '_files/js/dd_belatedpng.js',
 		_flashPlayerUrl = '_files/flash/fpo.swf',
+		_html5VideoJSUrl = '_files/js/jquery.hvideo.js',
+		_html5VideoCSSUrl = '_files/css/hvideo.css',
 		_pngFixElems = '.pngfix_';
 
 	function Util() {
@@ -21,8 +23,8 @@ var _ns = 'ZackUtil';
 		this.isAndroid = _ua.match(/Android/i) ? true : false;
 		this.isMobile = this.isAndroid || this.isIPhone;
 		this.isIPad = _ua.match(/iPad/i) ? true : false;
-		this.supportsAudio;
-		this.supportsVideo;
+		this.supportsAudio = !!document.createElement('audio').canPlayType;
+		this.supportsVideo = !!document.createElement('video').canPlayType;
 		//paths
 		this.filePath = (function() {
 			/* TODO: this should be more fool-proof without a hard-coded reference (RegEx it) */
@@ -45,7 +47,6 @@ var _ns = 'ZackUtil';
 		};
 		//flash
 		this.embedFlash = function(container,swf,width,height,flashvars) {
-log(flashvars)
 			if(this.isMobile || this.isIPad) { return; }
 			var container = this.wrap(container),swf = swf,width = width,height = height;
 			var flashvars = flashvars || {},
