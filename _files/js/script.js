@@ -27,6 +27,9 @@ var _ns = 'ZackUtil';
 		this.isIPad = _ua.match(/iPad/i) ? true : false;
 		this.supportsAudio = !!document.createElement('audio').canPlayType;
 		this.supportsVideo = !!document.createElement('video').canPlayType;
+		this.evalAttr = function(str) {
+			return eval('(' + str + ')');
+		};
 		//paths
 		this.filePath = (function() {
 			/* TODO: this should be more fool-proof without a hard-coded reference (RegEx it) */
@@ -72,33 +75,54 @@ var _ns = 'ZackUtil';
 				_embed();
 			}
 		};
+		this._buildVideoPlayer = function(videoUrl,width,height,vars) {
+			var $video = $(document.createElement('video')).attr({
+					'width': width,
+					'height': height,
+					'poster': vars.poster,
+					'preload': 'auto',
+					'controls': 'controls'
+				}).addClass('video-js');
+
+			var codecs = { 
+				mp4:'avc1.42E01E, mp4a.40.2',
+				webm: 'vp8, vorbis',
+				ogg: 'theora, vorbis'
+			}
+			/*TODO: parse the type from the URL - create obj for .map with default and alts */
+			var alts =  vars.altsrcs ?  vars.altsrcs : '';
+			var srcs = [videoUrl];
+			var src = $.map(srcs, function(n,i) {
+				var el = '<source src="'+ n +'" type="video/'+'; codecs=\''+'\'">';
+				return el;
+			});
+
+			$video.html(src.join(''))
+			return $video;
+
+		};
 		this.embedVideo = function(container,videoUrl,width,height,vars) {				
 				if(this.supportsVideo) {
-					//use video
-					var $target = $('#' + this.wrap(container));
 
-					/*TODO: replace with dynamic creation*/
-					var videoEl = this.basePath + _html5Video;
+					var $target = $('#' + this.wrap(container)).addClass('video-js-box tube-css');
+					$target.append(this._buildVideoPlayer(videoUrl,width,height,vars));
+					var el = $target.find('video').eq(0);
+					log($('video',$target).eq(0))
 					var _embed = function() {
-						var init = function() {
-							var videoEl = $target.addClass('video-js-box').find('video').eq(0);
-							VideoJS.setup(videoEl);
-						}
-						$target.addClass('tube-css').load(videoEl,init);
+
+							VideoJS.setup(el);
 					};
+					/*TODO: check if loaded*/
 					$.getCSS(this.addBasePath(_html5VideoCSS));
 					$.getCSS(this.addBasePath(_html5VideoCSSSkin));
 					$.getScript(this.basePath + _html5VideoJS,_embed);
 				
 				} else {
 					//use flashplayer
-log('embed flash player')
 					var player = this.basePath + _flashPlayer,
 							flashvars = vars || {};
 						flashvars.videoPath = videoUrl;
 					this.embedFlash(container,this.basePath + _flashPlayer,width,height,flashvars);
-
-
 				}
 				return;
 		};
