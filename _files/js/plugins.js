@@ -35,13 +35,20 @@
 			var	regex = new RegExp("[?&]" + p + "(?:=([^&]*))?","i"),
 				match = regex.exec(query ? query : window.location.search);
 			return match !== null ? match[1] : null;
+		},
+		absolutize: function() {
+			var $el = this;
+			if ($el.css('position') === 'absolute') { return $el; }
+			var offsets = $el.position(), top = offsets.top, left = offsets.left, width = $el[0].clientWidth,height = $el[0].clientHeight;
+			return $el
+				.data({_left: left - parseFloat($el.css('left') || 0), _top: top - parseFloat($el.css('top') || 0), _width: $el.css('width'), _height: $el.css('height')})
+				.css({ position: 'absolute', top: top + 'px', left: left + 'px', width: width + 'px', height: height + 'px'});
+		},
+		radioClass: function(cls) {
+			return this.siblings().removeClass(cls).end().addClass(cls);
 		}
 	
-	
 	});
-
-
- 
 
 
 
